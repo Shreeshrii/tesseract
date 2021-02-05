@@ -1,7 +1,7 @@
 name: sw
 
 on:
-  push:
+  #push:
   pull_request:
   schedule:
     # every day
