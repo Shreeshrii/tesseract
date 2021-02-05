@@ -10,6 +10,4 @@ link_directories( ${TESSERACT_LIBRARY_DIRS} )
 link_directories( ${LEPTONICA_LIBRARY_DIRS} )
 
 add_executable( basicapitest basicapitest.cpp)
-target_link_libraries( basicapitest ${TESSERACT_LIBRARIES} )
-target_link_libraries( basicapitest ${LEPTONICA_LIBRARIES} )
 target_link_libraries(basicapitest PRIVATE Tesseract::libtesseract)

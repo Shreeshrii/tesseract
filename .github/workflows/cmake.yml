@@ -94,12 +94,10 @@ jobs:
       - name: Build
         run: |
              cmake --build build --config Release --target install
-             ls 
 
       - name: Configure cmaketest 
         run: |
-             ls -l 
-             ls -l inst
+             ls -l build
              cmake \
                -S cmaketest \
                -B test-build \
@@ -110,8 +108,8 @@ jobs:
         
       - name: Build cmaketest
         run: |
-             ls -l 
-             ls
+             ls -l
+             ls -l test-build
              cmake --build test-build
              cat /Users/runner/work/tesseract/tesseract/test-build/CMakeFiles/CMakeOutput.log
              cmake --install test-build --prefix test-inst
