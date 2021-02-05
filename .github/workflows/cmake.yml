@@ -93,7 +93,7 @@ jobs:
                 
       - name: Build
         run: |
-             cmake --build build --config Release --target install
+             cmake --build build --config Release --target install --prefix inst
 
       - name: Display Tesseract Version
         run: |
@@ -126,10 +126,13 @@ jobs:
         run: |
              cmake \
                -S cmaketest \
-               -B build \
+               -B test-build \
                -G Ninja \
-               -DCMAKE_INSTALL_PREFIX:PATH=inst
-             cmake --build build
-             cmake --install build --prefix inst
+               -DCMAKE_PREFIX_PATH=$(readlink -f inst) \
+               -DCMAKE_INSTALL_PREFIX:PATH=test-inst
+             cmake --build test-build
+             cmake --install test-build --prefix test-inst
              ls -l inst
-             ./inst/basicapitest
+             ls -l test-inst
+             ./test-inst/basicapitest
+             
