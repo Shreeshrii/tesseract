@@ -122,18 +122,25 @@ jobs:
              git log -3 --pretty=format:'%h %ad %s | %an' 
         if: always()
 
-      - name: cmaketest
+      - name: Configure cmaketest 
         run: |
              cmake \
                -S cmaketest \
                -B test-build \
                -G Ninja \
-               -DCMAKE_PREFIX_PATH=build/inst  \
-               -DTesseract_DIR=build/inst/lib/cmake/tesseract \
+               -DCMAKE_PREFIX_PATH=../build/inst  \
+               -DTesseract_DIR=/Users/runner/work/tesseract/tesseract/build/inst/lib/cmake/tesseract/ \
                -DCMAKE_INSTALL_PREFIX:PATH=test-inst
+             ls -l inst
+             ls -l test-inst
+        if: always()
+        
+      - name: Build cmaketest
+        run: |
              cmake --build test-build
+             cat /Users/runner/work/tesseract/tesseract/test-build/CMakeFiles/CMakeOutput.log
              cmake --install test-build --prefix test-inst
              ls -l inst
              ls -l test-inst
              ./test-inst/basicapitest
-             
+        if: always()
