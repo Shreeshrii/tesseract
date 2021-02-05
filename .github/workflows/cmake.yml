@@ -49,7 +49,7 @@ jobs:
 
       - name: Install dependencies on Linux
         run: |
-             sudo apt-get install libleptonica-dev libpango1.0-dev -y
+             sudo apt-get install ninja libleptonica-dev libpango1.0-dev -y
         if: runner.os == 'Linux'
 
       - name: Install dependencies on macOS
@@ -128,7 +128,6 @@ jobs:
                -S cmaketest \
                -B test-build \
                -G Ninja \
-               -DCMAKE_PREFIX_PATH=$(readlink -f inst) \
                -DCMAKE_INSTALL_PREFIX:PATH=test-inst
              cmake --build test-build
              cmake --install test-build --prefix test-inst
