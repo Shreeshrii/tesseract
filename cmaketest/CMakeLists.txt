@@ -1,13 +1,8 @@
 cmake_minimum_required(VERSION 3.19)
 project(cmaketest)
 
-find_package( PkgConfig REQUIRED)
-pkg_search_module( TESSERACT REQUIRED tesseract )
-pkg_search_module( LEPTONICA REQUIRED lept )
-include_directories( ${TESSERACT_INCLUDE_DIRS} )
-include_directories( ${LEPTONICA_INCLUDE_DIRS} )
-link_directories( ${TESSERACT_LIBRARY_DIRS} )
-link_directories( ${LEPTONICA_LIBRARY_DIRS} )
+find_package( Leptonica  REQUIRED )
+find_package( Tesseract REQUIRED )
 
 add_executable( basicapitest basicapitest.cpp)
 target_link_libraries(basicapitest PRIVATE Tesseract::libtesseract)
