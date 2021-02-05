@@ -103,7 +103,7 @@ jobs:
                -B test-build \
                -G Ninja \
                -DTesseract_DIR=/Users/runner/work/tesseract/tesseract/build/inst/lib/cmake/tesseract/ \
-               -DCMAKE_PREFIX_PATH=build \
+               -DCMAKE_PREFIX_PATH=$(readlink -f build) \
                -DCMAKE_INSTALL_PREFIX:PATH=test-inst
             ls -l test-build
             ls -l test-inst
