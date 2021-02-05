@@ -17,29 +17,28 @@ jobs:
         config:
           
           - { name: macos-10.15-clang-cmake-build, os: macos-10.15, cc: clang, cxx: clang++ } #default  12.0.0
-          - { name: macos-10.15-gcc-8-cmake-build, os: macos-10.15, cc: gcc-8, cxx: g++-8 } #installed
-          - { name: macos-10.15-gcc-9-cmake-build, os: macos-10.15, cc: gcc-9, cxx: g++-9 } #installed
-          - { name: macos-10.15-gcc-10-cmake-build, os: macos-10.15, cc: gcc-10, cxx: g++-10 } #installed
-          
-          - { name: ubuntu-18.04-clang-6-cmake-build, os: ubuntu-18.04, cc: clang-6,  cxx: clang++-6 } #installed
-          - { name: ubuntu-18.04-clang-7-cmake-build, os: ubuntu-18.04, cc: clang-7,  cxx: clang++-7 }
-          - { name: ubuntu-18.04-clang-8-cmake-build, os: ubuntu-18.04, cc: clang-8,  cxx: clang++-8 } #installed
-          - { name: ubuntu-18.04-clang-9-cmake-build, os: ubuntu-18.04, cc: clang-9,  cxx: clang++-9 } #installed
-          - { name: ubuntu-18.04-clang-10-cmake-build, os: ubuntu-18.04, cc: clang-10,  cxx: clang++-10 }
-          
-          - { name: ubuntu-18.04-gcc-7-cmake-build, os: ubuntu-18.04, cc: gcc-7,  cxx: g++-7 } #installed
-          - { name: ubuntu-18.04-gcc-8-cmake-build, os: ubuntu-18.04, cc: gcc-8,  cxx: g++-8 } #installed
-          - { name: ubuntu-18.04-gcc-9-cmake-build, os: ubuntu-18.04, cc: gcc-9,  cxx: g++-9 } #installed
-          - { name: ubuntu-18.04-gcc-10-cmake-build, os: ubuntu-18.04, cc: gcc-10,  cxx: g++-10 } #installed
-          
-          - { name: ubuntu-20.04-clang-7-cmake-build, os: ubuntu-20.04, cc: clang-7, cxx: clang++-7 }
-          - { name: ubuntu-20.04-clang-8-cmake-build, os: ubuntu-20.04, cc: clang-8, cxx: clang++-8 } #installed
-          - { name: ubuntu-20.04-clang-9-cmake-build, os: ubuntu-20.04, cc: clang-9, cxx: clang++-9 } #installed
-          - { name: ubuntu-20.04-clang-10-cmake-build, os: ubuntu-20.04, cc: clang-10, cxx: clang++-10 } #installed
-          
-          - { name: ubuntu-20.04-gcc-7-cmake-build, os: ubuntu-20.04, cc: gcc-7, cxx: g++-7 } #installed
-          - { name: ubuntu-20.04-gcc-8-cmake-build, os: ubuntu-20.04, cc: gcc-8, cxx: g++-8 } #installed
-          - { name: ubuntu-20.04-gcc-9-cmake-build, os: ubuntu-20.04, cc: gcc-9, cxx: g++-9 } #installed
+###          - { name: macos-10.15-gcc-8-cmake-build, os: macos-10.15, cc: gcc-8, cxx: g++-8 } #installed
+###          - { name: macos-10.15-gcc-9-cmake-build, os: macos-10.15, cc: gcc-9, cxx: g++-9 } #installed
+###          - { name: macos-10.15-gcc-10-cmake-build, os: macos-10.15, cc: gcc-10, cxx: g++-10 } #installed
+###          
+###          - { name: ubuntu-18.04-clang-7-cmake-build, os: ubuntu-18.04, cc: clang-7,  cxx: clang++-7 }
+###          - { name: ubuntu-18.04-clang-8-cmake-build, os: ubuntu-18.04, cc: clang-8,  cxx: clang++-8 } #installed
+###          - { name: ubuntu-18.04-clang-9-cmake-build, os: ubuntu-18.04, cc: clang-9,  cxx: clang++-9 } #installed
+###          - { name: ubuntu-18.04-clang-10-cmake-build, os: ubuntu-18.04, cc: clang-10,  cxx: clang++-10 }
+###          
+###          - { name: ubuntu-18.04-gcc-7-cmake-build, os: ubuntu-18.04, cc: gcc-7,  cxx: g++-7 } #installed
+###          - { name: ubuntu-18.04-gcc-8-cmake-build, os: ubuntu-18.04, cc: gcc-8,  cxx: g++-8 } #installed
+###          - { name: ubuntu-18.04-gcc-9-cmake-build, os: ubuntu-18.04, cc: gcc-9,  cxx: g++-9 } #installed
+###          - { name: ubuntu-18.04-gcc-10-cmake-build, os: ubuntu-18.04, cc: gcc-10,  cxx: g++-10 } #installed
+###          
+###          - { name: ubuntu-20.04-clang-7-cmake-build, os: ubuntu-20.04, cc: clang-7, cxx: clang++-7 }
+###          - { name: ubuntu-20.04-clang-8-cmake-build, os: ubuntu-20.04, cc: clang-8, cxx: clang++-8 } #installed
+###          - { name: ubuntu-20.04-clang-9-cmake-build, os: ubuntu-20.04, cc: clang-9, cxx: clang++-9 } #installed
+###          - { name: ubuntu-20.04-clang-10-cmake-build, os: ubuntu-20.04, cc: clang-10, cxx: clang++-10 } #installed
+###          
+###          - { name: ubuntu-20.04-gcc-7-cmake-build, os: ubuntu-20.04, cc: gcc-7, cxx: g++-7 } #installed
+###          - { name: ubuntu-20.04-gcc-8-cmake-build, os: ubuntu-20.04, cc: gcc-8, cxx: g++-8 } #installed
+###          - { name: ubuntu-20.04-gcc-9-cmake-build, os: ubuntu-20.04, cc: gcc-9, cxx: g++-9 } #installed
           - { name: ubuntu-20.04-gcc-10-cmake-build, os: ubuntu-20.04, cc: gcc-10, cxx: g++-10 } #installed
           
     steps:
@@ -68,10 +67,12 @@ jobs:
       - name: Configure (Linux)
         run: |
              mkdir build && cd build
-             cmake -DCMAKE_CC_COMPILER=${{ matrix.config.cc }} \
-                   -DCMAKE_CXX_COMPILER=${{ matrix.config.cxx }} \
-                   -DCMAKE_INSTALL_PREFIX=inst \
-                   -DCMAKE_BUILD_TYPE=Release ..
+             cmake \
+               -DBUILD_TESTS=ON \
+               -DCMAKE_CC_COMPILER=${{ matrix.config.cc }} \
+               -DCMAKE_CXX_COMPILER=${{ matrix.config.cxx }} \
+               -DCMAKE_INSTALL_PREFIX=inst \
+               -DCMAKE_BUILD_TYPE=Release ..
         if: runner.os == 'Linux'
 
       - name: Configure (macOS)
@@ -84,8 +85,9 @@ jobs:
              cmake \
                -S . \
                -B build \
-               -DCMAKE_BUILD_TYPE=Release \
                -G Ninja \
+               -DBUILD_TESTS=ON \
+               -DCMAKE_BUILD_TYPE=Release \
                -DCMAKE_C_COMPILER=${{ matrix.config.cc }}  \
                -DCMAKE_CXX_COMPILER=${{ matrix.config.cxx }} \
                -DCMAKE_INSTALL_PREFIX:PATH=inst
