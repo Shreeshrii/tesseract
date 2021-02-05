@@ -3,7 +3,7 @@ name: cmake
 # cmake build of tesseract and training tools with gcc and clang on macOS homebrew using Ninja.
 # test command line version of tesseract.
 on:
-  #push:
+  push:
   schedule:
     - cron: 0 21 * * *
 
@@ -15,27 +15,47 @@ jobs:
       fail-fast: false
       matrix:
         config:
-          - { name: macos-10.15-clang-cmake-build, os: macos-10.15, cc: clang, cxx: clang++ }
-          - { name: macos-10.15-gcc-cmake-build, os: macos-10.15, cc: gcc, cxx: g++ }
-          - { name: macos-10.15-gcc-8cmake-build, os: macos-10.15, cc: gcc-8, cxx: g++-8 }
-          - { name: macos-10.15-gcc-9cmake-build, os: macos-10.15, cc: gcc-9, cxx: g++-9 }
-          - { name: macos-10.15-gcc-10cmake-build, os: macos-10.15, cc: gcc-10, cxx: g++-10 }
-          - { name: ubuntu-18.04-clang-7-cmake-build, os: ubuntu-18.04, cc: clang-7,  cxx: clang++-7 }
-          - { name: ubuntu-18.04-clang-8-cmake-build, os: ubuntu-18.04, cc: clang-8,  cxx: clang++-8 }
-          - { name: ubuntu-18.04-clang-9-cmake-build, os: ubuntu-18.04, cc: clang-9,  cxx: clang++-9 }
-          - { name: ubuntu-18.04-clang-10-cmake-build, os: ubuntu-18.04, cc: clang-10,  cxx: clang++-10 }
-          - { name: ubuntu-18.04-gcc-7-cmake-build, os: ubuntu-18.04, cc: gcc-7,  cxx: g++-7 }
-          - { name: ubuntu-18.04-gcc-8-cmake-build, os: ubuntu-18.04, cc: gcc-8,  cxx: g++-8 }
-          - { name: ubuntu-18.04-gcc-9-cmake-build, os: ubuntu-18.04, cc: gcc-9,  cxx: g++-9 }
-          - { name: ubuntu-18.04-gcc-10-cmake-build, os: ubuntu-18.04, cc: gcc-10,  cxx: g++-10 }
-          - { name: ubuntu-20.04-clang-7-cmake-build, os: ubuntu-20.04, cc: clang-7, cxx: clang++-7 }
-          - { name: ubuntu-20.04-clang-8-cmake-build, os: ubuntu-20.04, cc: clang-8, cxx: clang++-8 }
-          - { name: ubuntu-20.04-clang-9-cmake-build, os: ubuntu-20.04, cc: clang-9, cxx: clang++-9 }
-          - { name: ubuntu-20.04-clang-10-cmake-build, os: ubuntu-20.04, cc: clang-10, cxx: clang++-10 }
-          - { name: ubuntu-20.04-gcc-7-cmake-build, os: ubuntu-20.04, cc: gcc-7, cxx: g++-7 }
-          - { name: ubuntu-20.04-gcc-8-cmake-build, os: ubuntu-20.04, cc: gcc-8, cxx: g++-8 }
-          - { name: ubuntu-20.04-gcc-9-cmake-build, os: ubuntu-20.04, cc: gcc-9, cxx: g++-9 }
-          - { name: ubuntu-20.04-gcc-10-cmake-build, os: ubuntu-20.04, cc: gcc-10, cxx: g++-10 }
+
+          - { name: macos-11.0-clang-cmake-build, os: macos-11.0, cc: clang, cxx: clang++ } #default  12.0.0
+          
+          - { name: macos-10.15-clang-cmake-build, os: macos-10.15, cc: clang, cxx: clang++ } #default  12.0.0
+          - { name: macos-10.15-gcc-8cmake-build, os: macos-10.15, cc: gcc-8, cxx: g++-8 } #installed
+          - { name: macos-10.15-gcc-9cmake-build, os: macos-10.15, cc: gcc-9, cxx: g++-9 } #installed
+          - { name: macos-10.15-gcc-10cmake-build, os: macos-10.15, cc: gcc-10, cxx: g++-10 } #installed
+          
+          - { name: ubuntu-16.04-clang-6-cmake-build, os: ubuntu-16.04, cc: clang-6,  cxx: clang++-6 } #installed
+          - { name: ubuntu-16.04-clang-7-cmake-build, os: ubuntu-16.04, cc: clang-7,  cxx: clang++-7 }
+          - { name: ubuntu-16.04-clang-8-cmake-build, os: ubuntu-16.04, cc: clang-8,  cxx: clang++-8 } #installed
+          - { name: ubuntu-16.04-clang-9-cmake-build, os: ubuntu-16.04, cc: clang-9,  cxx: clang++-9 } #installed
+          - { name: ubuntu-16.04-clang-10-cmake-build, os: ubuntu-16.04, cc: clang-10,  cxx: clang++-10 }
+          
+          - { name: ubuntu-16.04-gcc-5-cmake-build, os: ubuntu-16.04, cc: gcc-5,  cxx: g++-5 } #installed
+          - { name: ubuntu-16.04-gcc-6-cmake-build, os: ubuntu-16.04, cc: gcc-6,  cxx: g++-6 }
+          - { name: ubuntu-16.04-gcc-7-cmake-build, os: ubuntu-16.04, cc: gcc-7,  cxx: g++-7 } #installed
+          - { name: ubuntu-16.04-gcc-8-cmake-build, os: ubuntu-16.04, cc: gcc-8,  cxx: g++-8 } #installed
+          - { name: ubuntu-16.04-gcc-9-cmake-build, os: ubuntu-16.04, cc: gcc-9,  cxx: g++-9 } #installed
+          - { name: ubuntu-16.04-gcc-10-cmake-build, os: ubuntu-16.04, cc: gcc-10,  cxx: g++-10 }
+          
+###          - { name: ubuntu-18.04-clang-6-cmake-build, os: ubuntu-18.04, cc: clang-6,  cxx: clang++-6 } #installed
+###          - { name: ubuntu-18.04-clang-7-cmake-build, os: ubuntu-18.04, cc: clang-7,  cxx: clang++-7 }
+###          - { name: ubuntu-18.04-clang-8-cmake-build, os: ubuntu-18.04, cc: clang-8,  cxx: clang++-8 } #installed
+###          - { name: ubuntu-18.04-clang-9-cmake-build, os: ubuntu-18.04, cc: clang-9,  cxx: clang++-9 } #installed
+###          - { name: ubuntu-18.04-clang-10-cmake-build, os: ubuntu-18.04, cc: clang-10,  cxx: clang++-10 }
+###          
+###          - { name: ubuntu-18.04-gcc-7-cmake-build, os: ubuntu-18.04, cc: gcc-7,  cxx: g++-7 } #installed
+###          - { name: ubuntu-18.04-gcc-8-cmake-build, os: ubuntu-18.04, cc: gcc-8,  cxx: g++-8 } #installed
+###          - { name: ubuntu-18.04-gcc-9-cmake-build, os: ubuntu-18.04, cc: gcc-9,  cxx: g++-9 } #installed
+###          - { name: ubuntu-18.04-gcc-10-cmake-build, os: ubuntu-18.04, cc: gcc-10,  cxx: g++-10 } #installed
+###          
+###          - { name: ubuntu-20.04-clang-7-cmake-build, os: ubuntu-20.04, cc: clang-7, cxx: clang++-7 }
+###          - { name: ubuntu-20.04-clang-8-cmake-build, os: ubuntu-20.04, cc: clang-8, cxx: clang++-8 } #installed
+###          - { name: ubuntu-20.04-clang-9-cmake-build, os: ubuntu-20.04, cc: clang-9, cxx: clang++-9 } #installed
+###          - { name: ubuntu-20.04-clang-10-cmake-build, os: ubuntu-20.04, cc: clang-10, cxx: clang++-10 } #installed
+###          
+###          - { name: ubuntu-20.04-gcc-7-cmake-build, os: ubuntu-20.04, cc: gcc-7, cxx: g++-7 } #installed
+###          - { name: ubuntu-20.04-gcc-8-cmake-build, os: ubuntu-20.04, cc: gcc-8, cxx: g++-8 } #installed
+###          - { name: ubuntu-20.04-gcc-9-cmake-build, os: ubuntu-20.04, cc: gcc-9, cxx: g++-9 } #installed
+###          - { name: ubuntu-20.04-gcc-10-cmake-build, os: ubuntu-20.04, cc: gcc-10, cxx: g++-10 } #installed
           
     steps:
       - name: Install compilers on Linux
