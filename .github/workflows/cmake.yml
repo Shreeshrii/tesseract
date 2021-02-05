@@ -93,7 +93,7 @@ jobs:
                 
       - name: Build
         run: |
-             cmake --build build --config Release --target install --prefix inst
+             cmake --build build --config Release --target install
 
       - name: Display Tesseract Version
         run: |
