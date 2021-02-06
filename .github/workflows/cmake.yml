@@ -16,7 +16,7 @@ jobs:
       matrix:
         config:
           
-          - { name: macos-10.15-clang-cmake-build, os: macos-10.15, cc: clang, cxx: clang++ } #default  12.0.0
+          - { name: macos-10.15-clang-cmake-build, os: macos-10.15, cc: '$(brew --prefix llvm)/bin/clang', cxx: '$(brew --prefix llvm)/bin/clang++' }
           - { name: macos-10.15-gcc-8-cmake-build, os: macos-10.15, cc: gcc-8, cxx: g++-8 } #installed
 ###          - { name: macos-10.15-gcc-9-cmake-build, os: macos-10.15, cc: gcc-9, cxx: g++-9 } #installed
 ###          - { name: macos-10.15-gcc-10-cmake-build, os: macos-10.15, cc: gcc-10, cxx: g++-10 } #installed
@@ -107,7 +107,9 @@ jobs:
                -S cmaketest \
                -B test-build \
                -G Ninja \
-               -DTesseract_DIR=build \
+               -DCMAKE_C_COMPILER=${{ matrix.config.cc }}  \
+               -DCMAKE_CXX_COMPILER=${{ matrix.config.cxx }} \
+               -DTesseract_DIR=build/inst/lib/cmake/tesseract \
                -DCMAKE_INSTALL_PREFIX:PATH=test-inst
         
       - name: Build and run basicapitest
