@@ -95,37 +95,22 @@ jobs:
         run: |
              cmake --build build --config Release --target install
 
-      - name: Configure cmaketest 
+      - name: Configure basicapitest 
         run: |
-             ls -l build
              cmake \
                -S cmaketest \
                -B test-build \
                -G Ninja \
-               -DTesseract_DIR=build/inst/lib/cmake/tesseract/ \
-               -DCMAKE_PREFIX_PATH=$(readlink -f build) \
                -DCMAKE_INSTALL_PREFIX:PATH=test-inst
-             ls -l test-build
-             ls -l test-inst
-        if: always()
         
-      - name: Build cmaketest
+      - name: Build and run basicapitest
         run: |
-             cmake --build test-build
-             cat /Users/runner/work/tesseract/tesseract/test-build/CMakeFiles/CMakeOutput.log
-             cmake --install test-build --prefix test-inst
-             ./test-inst/basicapitest
-        if: always()
+             cmake --build test-build 
+             test-build/basicapitest
         
       - name: Display Tesseract Version
         run: |
              build/inst/bin/tesseract -v
-        
-      - name: Download fonts, tessdata and langdata required for tests
-        run: |
-             git clone https://github.com/egorpugin/tessdata tessdata_unittest
-             cp tessdata_unittest/fonts/* test/testing/ 
-             mv tessdata_unittest/* ../
       
       - name: Run Tesseract on phototest.tif and raaj.tif
         run: |
