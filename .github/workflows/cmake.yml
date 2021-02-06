@@ -16,7 +16,8 @@ jobs:
       matrix:
         config:
           
-          - { name: macos-10.15-clang-cmake-build, os: macos-10.15, cc: '$(brew --prefix llvm)/bin/clang', cxx: '$(brew --prefix llvm)/bin/clang++' }
+          - { name: macos-10.15-clang-12-cmake-build, os: macos-10.15, cc: clang, cxx: clang++ } # defualt
+          - { name: macos-10.15-clang-11-cmake-build, os: macos-10.15, cc: '$(brew --prefix llvm)/bin/clang', cxx: '$(brew --prefix llvm)/bin/clang++' }  #installed
           - { name: macos-10.15-gcc-8-cmake-build, os: macos-10.15, cc: gcc-8, cxx: g++-8 } #installed
 ###          - { name: macos-10.15-gcc-9-cmake-build, os: macos-10.15, cc: gcc-9, cxx: g++-9 } #installed
 ###          - { name: macos-10.15-gcc-10-cmake-build, os: macos-10.15, cc: gcc-10, cxx: g++-10 } #installed
@@ -73,6 +74,7 @@ jobs:
                -B build \
                -G Ninja \
                -DCMAKE_BUILD_TYPE=Release \
+               -DOPENMP_BUILD=OFF \
                -DCMAKE_C_COMPILER=${{ matrix.config.cc }}  \
                -DCMAKE_CXX_COMPILER=${{ matrix.config.cxx }} \
                -DCMAKE_INSTALL_PREFIX:PATH=inst
@@ -90,6 +92,7 @@ jobs:
                -B build \
                -G Ninja \
                -DCMAKE_BUILD_TYPE=Release \
+               -DOPENMP_BUILD=OFF \
                -DCMAKE_C_COMPILER=${{ matrix.config.cc }}  \
                -DCMAKE_CXX_COMPILER=${{ matrix.config.cxx }} \
                -DCMAKE_INSTALL_PREFIX:PATH=inst
