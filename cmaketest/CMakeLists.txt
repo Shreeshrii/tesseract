@@ -14,7 +14,12 @@ endif()
 
 find_package(PkgConfig)
 pkg_check_modules(Leptonica REQUIRED lept>=1.78)
-pkg_check_modules(Tesseract REQUIRED tesseract )
+if(PKG_CONFIG_EXECUTABLE AND NOT Tesseract_DIR)
+    pkg_check_modules(Tesseract REQUIRED tesseract)
+    link_directories(${Tesseract_LIBRARY_DIRS})
+else()
+     find_package(Tesseract REQUIRED CONFIG)
+endif()
 
 add_executable( basicapitest basicapitest.cpp)
 target_link_libraries(basicapitest ${Leptonica_LIBRARIES})

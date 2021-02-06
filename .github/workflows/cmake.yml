@@ -66,12 +66,16 @@ jobs:
         
       - name: Configure (Linux)
         run: |
-             mkdir build && cd build
+             mkdir build
+             mkdir inst
              cmake \
-               -DCMAKE_CC_COMPILER=${{ matrix.config.cc }} \
+               -S . \
+               -B build \
+               -G Ninja \
+               -DCMAKE_BUILD_TYPE=Release \
+               -DCMAKE_C_COMPILER=${{ matrix.config.cc }}  \
                -DCMAKE_CXX_COMPILER=${{ matrix.config.cxx }} \
-               -DCMAKE_INSTALL_PREFIX=inst \
-               -DCMAKE_BUILD_TYPE=Release ..
+               -DCMAKE_INSTALL_PREFIX:PATH=inst
         if: runner.os == 'Linux'
 
       - name: Configure (macOS)
