@@ -101,7 +101,13 @@ jobs:
       - name: Build
         run: |
              cmake --build build --config Release --target install
-      
+
+      - name: Download fonts, tessdata and langdata required for tests
+        run: |
+           git clone https://github.com/egorpugin/tessdata tessdata_unittest
+           cp tessdata_unittest/fonts/* test/testing/ 
+           mv tessdata_unittest/* ../
+           
       - name: Run Tesseract on phototest.tif and raaj.tif
         run: |
              build/inst/bin/tesseract test/testing/phototest.tif -  --tessdata-dir ../tessdata
