@@ -101,24 +101,12 @@ jobs:
       - name: Build
         run: |
              cmake --build build --config Release --target install
-
-      - name: Configure basicapitest 
-        run: |
-             set -e
-             export PKG_CONFIG_PATH=$(brew --prefix)/opt/icu4c/lib/pkgconfig:$(brew --prefix)/opt/libarchive/lib/pkgconfig:/$(brew --prefix)/opt/libffi/lib/pkgconfig:$PKG_CONFIG_PATH
-             cmake \
-               -S cmaketest \
-               -B test-build \
-               -G Ninja \
-               -DCMAKE_C_COMPILER=${{ matrix.config.cc }}  \
-               -DCMAKE_CXX_COMPILER=${{ matrix.config.cxx }} \
-               -DTesseract_DIR=build/inst/lib/cmake/tesseract \
-               -DCMAKE_INSTALL_PREFIX:PATH=test-inst
         
       - name: Build and run basicapitest
         run: |
-             cmake --build test-build 
-             test-build/basicapitest
+             cd cmaketest
+             ${{ matrix.config.cxx }} basicapitest.cpp `pkg-config --cflags --libs tesseract lept ` -fopenmp  -pthread -o basicapitest 
+             ./basicapitest
         
       - name: Display Tesseract Version
         run: |
