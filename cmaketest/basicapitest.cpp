@@ -7,7 +7,7 @@ int main()
 
     tesseract::TessBaseAPI *api = new tesseract::TessBaseAPI();
     // Initialize tesseract-ocr with English
-    if (api->Init(../tessdata, "eng")) {
+    if (api->Init("../../tessdata", "eng")) {
         fprintf(stderr, "Could not initialize tesseract.\n");
         exit(1);
     }
