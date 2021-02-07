@@ -23,23 +23,23 @@ jobs:
           - { name: macos-10.15-gcc-10-cmake-build, os: macos-10.15, cc: gcc-10, cxx: g++-10 } #installed
           
           - { name: ubuntu-18.04-clang-7-cmake-build, os: ubuntu-18.04, cc: clang-7,  cxx: clang++-7 }
-          - { name: ubuntu-18.04-clang-8-cmake-build, os: ubuntu-18.04, cc: clang-8,  cxx: clang++-8 } #installed
-          - { name: ubuntu-18.04-clang-9-cmake-build, os: ubuntu-18.04, cc: clang-9,  cxx: clang++-9 } #installed
-          - { name: ubuntu-18.04-clang-10-cmake-build, os: ubuntu-18.04, cc: clang-10,  cxx: clang++-10 }
-          
-          - { name: ubuntu-18.04-gcc-7-cmake-build, os: ubuntu-18.04, cc: gcc-7,  cxx: g++-7 } #installed
-          - { name: ubuntu-18.04-gcc-8-cmake-build, os: ubuntu-18.04, cc: gcc-8,  cxx: g++-8 } #installed
-          - { name: ubuntu-18.04-gcc-9-cmake-build, os: ubuntu-18.04, cc: gcc-9,  cxx: g++-9 } #installed
-          - { name: ubuntu-18.04-gcc-10-cmake-build, os: ubuntu-18.04, cc: gcc-10,  cxx: g++-10 } #installed
-          
-          - { name: ubuntu-20.04-clang-7-cmake-build, os: ubuntu-20.04, cc: clang-7, cxx: clang++-7 }
-          - { name: ubuntu-20.04-clang-8-cmake-build, os: ubuntu-20.04, cc: clang-8, cxx: clang++-8 } #installed
-          - { name: ubuntu-20.04-clang-9-cmake-build, os: ubuntu-20.04, cc: clang-9, cxx: clang++-9 } #installed
-          - { name: ubuntu-20.04-clang-10-cmake-build, os: ubuntu-20.04, cc: clang-10, cxx: clang++-10 } #installed
-          
-          - { name: ubuntu-20.04-gcc-7-cmake-build, os: ubuntu-20.04, cc: gcc-7, cxx: g++-7 } #installed
-          - { name: ubuntu-20.04-gcc-8-cmake-build, os: ubuntu-20.04, cc: gcc-8, cxx: g++-8 } #installed
-          - { name: ubuntu-20.04-gcc-9-cmake-build, os: ubuntu-20.04, cc: gcc-9, cxx: g++-9 } #installed
+###          - { name: ubuntu-18.04-clang-8-cmake-build, os: ubuntu-18.04, cc: clang-8,  cxx: clang++-8 } #installed
+###          - { name: ubuntu-18.04-clang-9-cmake-build, os: ubuntu-18.04, cc: clang-9,  cxx: clang++-9 } #installed
+###          - { name: ubuntu-18.04-clang-10-cmake-build, os: ubuntu-18.04, cc: clang-10,  cxx: clang++-10 }
+###          
+###          - { name: ubuntu-18.04-gcc-7-cmake-build, os: ubuntu-18.04, cc: gcc-7,  cxx: g++-7 } #installed
+###          - { name: ubuntu-18.04-gcc-8-cmake-build, os: ubuntu-18.04, cc: gcc-8,  cxx: g++-8 } #installed
+###          - { name: ubuntu-18.04-gcc-9-cmake-build, os: ubuntu-18.04, cc: gcc-9,  cxx: g++-9 } #installed
+###          - { name: ubuntu-18.04-gcc-10-cmake-build, os: ubuntu-18.04, cc: gcc-10,  cxx: g++-10 } #installed
+###          
+###          - { name: ubuntu-20.04-clang-7-cmake-build, os: ubuntu-20.04, cc: clang-7, cxx: clang++-7 }
+###          - { name: ubuntu-20.04-clang-8-cmake-build, os: ubuntu-20.04, cc: clang-8, cxx: clang++-8 } #installed
+###          - { name: ubuntu-20.04-clang-9-cmake-build, os: ubuntu-20.04, cc: clang-9, cxx: clang++-9 } #installed
+###          - { name: ubuntu-20.04-clang-10-cmake-build, os: ubuntu-20.04, cc: clang-10, cxx: clang++-10 } #installed
+###          
+###          - { name: ubuntu-20.04-gcc-7-cmake-build, os: ubuntu-20.04, cc: gcc-7, cxx: g++-7 } #installed
+###          - { name: ubuntu-20.04-gcc-8-cmake-build, os: ubuntu-20.04, cc: gcc-8, cxx: g++-8 } #installed
+###          - { name: ubuntu-20.04-gcc-9-cmake-build, os: ubuntu-20.04, cc: gcc-9, cxx: g++-9 } #installed
           - { name: ubuntu-20.04-gcc-10-cmake-build, os: ubuntu-20.04, cc: gcc-10, cxx: g++-10 } #installed
           
     steps:
@@ -101,6 +101,11 @@ jobs:
       - name: Build
         run: |
              cmake --build build --config Release --target install
+      
+      - name: Run Tesseract on phototest.tif and raaj.tif
+        run: |
+             build/inst/bin/tesseract test/testing/phototest.tif -  --tessdata-dir ../tessdata
+             build/inst/bin/tesseract test/testing/raaj.tif - -l hin  --tessdata-dir ../tessdata
         
       - name: Build and run basicapitest
         run: |
@@ -111,12 +116,7 @@ jobs:
       - name: Display Tesseract Version
         run: |
              build/inst/bin/tesseract -v
-      
-      - name: Run Tesseract on phototest.tif and raaj.tif
-        run: |
-             build/inst/bin/tesseract test/testing/phototest.tif -  --tessdata-dir ../tessdata
-             build/inst/bin/tesseract test/testing/raaj.tif - -l hin  --tessdata-dir ../tessdata
-
+             
       - name: Display Training Tools Version
         run: |
              build/inst/bin/lstmtraining -v
