@@ -81,8 +81,12 @@ jobs:
       run: |
            tesseract test/testing/phototest.tif -  --tessdata-dir ../tessdata
            tesseract test/testing/raaj.tif - -l hin  --tessdata-dir ../tessdata
+           
+    - name: Run Tesseract basicapitest
+      run: |
            cd cmaketest
            ${{ matrix.config.cxx }} basicapitest.cpp `pkg-config --cflags --libs tesseract lept ` -fopenmp  -pthread -o basicapitest 
+           ./basicapitest
            
     - name: Display Compiler Version
       run: |
@@ -151,8 +155,13 @@ jobs:
       run: |
            tesseract test/testing/phototest.tif -  --tessdata-dir ../tessdata
            tesseract test/testing/raaj.tif - -l hin  --tessdata-dir ../tessdata
+           
+    - name: Run Tesseract basicapitest
+      run: |
            cd cmaketest
            ${{ matrix.config.cxx }} basicapitest.cpp `pkg-config --cflags --libs tesseract lept ` -fopenmp  -pthread -o basicapitest 
+           ./basicapitest
+           
            
     - name: Display Compiler Version
       run: |
@@ -228,8 +237,11 @@ jobs:
       run: |
            tesseract test/testing/phototest.tif -  --tessdata-dir ../tessdata
            tesseract test/testing/raaj.tif - -l hin  --tessdata-dir ../tessdata
+           
+    - name: Run basicapitest
+      run: |
            cd cmaketest
-           ${{ matrix.config.cxx }} basicapitest.cpp `pkg-config --cflags --libs tesseract lept ` -fopenmp  -pthread -I/usr/local/include -o basicapitest 
+           ${{ matrix.config.cxx }} basicapitest.cpp `pkg-config --cflags --libs tesseract lept ` -fopenmp  -pthread -o basicapitest 
            ./basicapitest
            
     - name: Display Compiler Version
