@@ -23,8 +23,6 @@ jobs:
     - name: Checkout vcpkg
       run: |
            git clone https://github.com/microsoft/vcpkg
-           ls -l
-           ls .. -l
     
     - name: Install vcpkg (Linux)
       run: |
