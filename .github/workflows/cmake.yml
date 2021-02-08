@@ -3,7 +3,7 @@ name: cmake
 # cmake build of tesseract and training tools with gcc and clang on macOS homebrew using Ninja.
 # test command line version of tesseract.
 on:
-  #push:
+  push:
   schedule:
     - cron: 0 21 * * *
 

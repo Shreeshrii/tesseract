@@ -4,7 +4,7 @@ name: vcpkg
 # Build stable version 4.1.1. 
 # Requested port update https://github.com/microsoft/vcpkg/issues/16019.
 on:
-  push:
+  #push:
   schedule:
     - cron: 0 0 2 3 *
 jobs: 
