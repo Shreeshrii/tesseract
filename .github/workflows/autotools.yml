@@ -84,10 +84,9 @@ jobs:
            
     - name: Run Tesseract basicapitest
       run: |
-           cd cmaketest
-           ${{ matrix.config.cxx }} basicapitest.cpp `pkg-config --cflags --libs tesseract lept ` -fopenmp  -pthread -o basicapitest 
+           ${{ matrix.config.cxx }} cmaketest/basicapitest.cpp `pkg-config  --libs tesseract lept ` -fopenmp  -pthread -o basicapitest 
            ./basicapitest
-      continue-on-error: true
+      if: always()
            
     - name: Display Compiler Version
       run: |
@@ -159,10 +158,9 @@ jobs:
            
     - name: Run Tesseract basicapitest
       run: |
-           cd cmaketest
-           ${{ matrix.config.cxx }} basicapitest.cpp `pkg-config --cflags --libs tesseract lept ` -fopenmp  -pthread -o basicapitest 
+           ${{ matrix.config.cxx }} cmaketest/basicapitest.cpp `pkg-config  --libs tesseract lept ` -fopenmp  -pthread -o basicapitest 
            ./basicapitest
-      continue-on-error: true
+      if: always()
            
     - name: Display Compiler Version
       run: |
@@ -239,10 +237,9 @@ jobs:
            tesseract test/testing/phototest.tif -  --tessdata-dir ../tessdata
            tesseract test/testing/raaj.tif - -l hin  --tessdata-dir ../tessdata
            
-    - name: Run basicapitest (fatal error: tesseract/baseapi.h)
+    - name: Run basicapitest - fatal error: tesseract/baseapi.h
       run: |
-           cd cmaketest
-           ${{ matrix.config.cxx }} basicapitest.cpp `pkg-config --cflags --libs tesseract lept ` -fopenmp  -pthread -o basicapitest 
+           ${{ matrix.config.cxx }} cmaketest/basicapitest.cpp `pkg-config  --libs tesseract lept ` -fopenmp  -pthread -o basicapitest 
            ./basicapitest
       continue-on-error: true
         

@@ -101,7 +101,16 @@ jobs:
       - name: Build
         run: |
              cmake --build build --config Release --target install
-
+        
+      - name: Display Tesseract Version
+        run: |
+             build/inst/bin/tesseract -v
+             
+      - name: Display Training Tools Version
+        run: |
+             build/inst/bin/lstmtraining -v
+             build/inst/bin/text2image -v
+             
       - name: Download fonts, tessdata and langdata required for tests
         run: |
              git clone https://github.com/egorpugin/tessdata tessdata_unittest
@@ -115,19 +124,9 @@ jobs:
         
       - name: Build and run basicapitest 
         run: |
-             cd cmaketest
-             ${{ matrix.config.cxx }} basicapitest.cpp `pkg-config --cflags --libs tesseract lept ` -fopenmp  -pthread -o basicapitest 
+             ${{ matrix.config.cxx }} cmaketest/basicapitest.cpp `pkg-config --cflags --libs tesseract lept ` -fopenmp  -pthread -o basicapitest 
              ./basicapitest
-        continue-on-error: true
-        
-      - name: Display Tesseract Version
-        run: |
-             build/inst/bin/tesseract -v
-             
-      - name: Display Training Tools Version
-        run: |
-             build/inst/bin/lstmtraining -v
-             build/inst/bin/text2image -v
+        if: always()
 
       - name: Display Compiler Version
         run: |
