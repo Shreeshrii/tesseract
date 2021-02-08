@@ -124,6 +124,7 @@ jobs:
         
       - name: Build and run basicapitest 
         run: |
+             export PKG_CONFIG_PATH=build:$PKG_CONFIG_PATH
              cd cmaketest
              ${{ matrix.config.cxx }} basicapitest.cpp `pkg-config --cflags --libs tesseract lept ` -fopenmp  -pthread -o basicapitest 
              ./basicapitest
