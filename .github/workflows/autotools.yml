@@ -231,18 +231,18 @@ jobs:
            git clone https://github.com/egorpugin/tessdata tessdata_unittest
            cp tessdata_unittest/fonts/* test/testing/
            mv tessdata_unittest/* ../
-      
+            
     - name: Run Tesseract on phototest.tif and raaj.tif
       run: |
            tesseract test/testing/phototest.tif -  --tessdata-dir ../tessdata
            tesseract test/testing/raaj.tif - -l hin  --tessdata-dir ../tessdata
            
-    - name: Run basicapitest - fatal error: tesseract/baseapi.h
+    - name: Run Tesseract basicapitest
       run: |
            ${{ matrix.config.cxx }} cmaketest/basicapitest.cpp `pkg-config  --libs tesseract lept ` -fopenmp  -pthread -o basicapitest 
            ./basicapitest
-      continue-on-error: true
-        
+      if: always()
+           
     - name: Display Compiler Version
       run: |
            ${{ matrix.config.cxx }} --version
