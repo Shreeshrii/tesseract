@@ -162,7 +162,7 @@ jobs:
            cd cmaketest
            ${{ matrix.config.cxx }} basicapitest.cpp `pkg-config --cflags --libs tesseract lept `  -pthread  -o basicapitest 
            ./basicapitest
-      if: always()
+      if: !startsWith(matrix.config.cxx, 'clang')
            
     - name: Display Compiler Version
       run: |
@@ -251,3 +251,4 @@ jobs:
            ${{ matrix.config.cxx }} --version
            git log -3 --pretty=format:'%h %ad %s | %an' 
       if: always()
+

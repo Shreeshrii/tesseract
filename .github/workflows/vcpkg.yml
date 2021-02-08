@@ -57,6 +57,7 @@ jobs:
            vcpkg/vcpkg install tesseract:x64-windows
       if: runner.os == 'Windows'
       
+      
 ###    - name: Install vcpkg (macOS)
 ###      run: |
 ###           vcpkg/bootstrap-vcpkg.sh
