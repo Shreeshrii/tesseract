@@ -4,7 +4,7 @@ name: vcpkg
 # Build stable version 4.1.1. 
 # Requested port update https://github.com/microsoft/vcpkg/issues/16019.
 on:
-  #push:
+  push:
   schedule:
     - cron: 0 0 2 3 *
 jobs: 
@@ -18,7 +18,12 @@ jobs:
     steps:
       - run: |
              git clone https://github.com/microsoft/vcpkg
-   
+
+      - name: Checkout Source
+        uses: actions/checkout@v2
+        with:
+             submodules: recursive
+        
       - name: Install vcpkg (Linux)
         run: |
              vcpkg/bootstrap-vcpkg.sh
@@ -35,7 +40,40 @@ jobs:
         run: |
              vcpkg/vcpkg install tesseract:x64-linux
         if: runner.os == 'Linux'
-       
+
+      - name: Build baseapitest (Linux)
+        run: |
+             mkdir test-build && cd test-build
+             cmake ../cmaketest 
+             cmake --build . 
+             ./basicapitest
+        if: runner.os == 'Linux'
+
+      - name: Build (macOS)
+        run: |
+             vcpkg/bootstrap-vcpkg.sh
+             vcpkg/vcpkg integrate install
+             vcpkg/vcpkg list tess
+        if: runner.os == 'macOS'
+        
+      - name: Build Tesseract Dependencies (macOS)
+        run: |
+             vcpkg/vcpkg install bzip2[core]:x64-macos giflib[core]:x64-macos leptonica[core]:x64-macos libarchive[bzip2,core,libxml2,lz4,lzma,lzo,openssl,zstd]:x64-macos libiconv[core]:x64-macos libjpeg-turbo[core]:x64-macos liblzma[core]:x64-macos libpng[core]:x64-macos libwebp[core,nearlossless,simd]:x64-macos libxml2[core]:x64-macos lz4[core]:x64-macos lzo[core]:x64-macos openjpeg[core]:x64-macos openssl[core]:x64-macos tiff[core]:x64-macos xxhash[core]:x64-macos zlib[core]:x64-macos zstd[core]:x64-macos
+        if: runner.os == 'macOS'
+        
+      - name: Build Tesseract 4.1.1 (macOS)
+        run: |
+             vcpkg/vcpkg install tesseract:x64-macos
+        if: runner.os == 'macOS'
+
+      - name: Build baseapitest (macOS)
+        run: |
+             mkdir test-build && cd test-build
+             cmake ../cmaketest 
+             cmake --build . 
+             ./basicapitest
+        if: runner.os == 'macOS'
+        
       - name: Build (Windows)
         run: |
              vcpkg/bootstrap-vcpkg.bat
@@ -43,11 +81,4 @@ jobs:
              vcpkg/vcpkg list tess
              vcpkg/vcpkg install tesseract:x64-windows
         if: runner.os == 'Windows'
-
-      - name: Build (macOS)
-        run: |
-             vcpkg/bootstrap-vcpkg.sh
-             vcpkg/vcpkg integrate install
-             vcpkg/vcpkg list tess
-             vcpkg/vcpkg install tesseract:x64-macos
-        if: runner.os == 'Windows'
+        
