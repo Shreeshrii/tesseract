@@ -16,13 +16,13 @@ jobs:
         os: [ubuntu-latest, windows-latest, macos-latest]
       
     steps:
-      - run: |
-             git clone https://github.com/microsoft/vcpkg
-
-      - name: Checkout Source
         uses: actions/checkout@v2
         with:
              submodules: recursive
+
+      - name: Checkout vcpkg
+      - run: |
+             git clone https://github.com/microsoft/vcpkg
         
       - name: Install vcpkg (Linux)
         run: |
