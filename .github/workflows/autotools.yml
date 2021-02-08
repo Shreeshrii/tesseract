@@ -86,7 +86,7 @@ jobs:
     - name: Run Tesseract basicapitest
       run: |
            cd cmaketest
-           ${{ matrix.config.cxx }} basicapitest.cpp `pkg-config  --cflags --libs tesseract lept ` -fopenmp  -pthread -o basicapitest 
+           ${{ matrix.config.cxx }} -std=c++17 `pkg-config --cflags --libs tesseract lept ` -fopenmp  -pthread basicapitest.cpp -o basicapitest 
            ./basicapitest
       if: always()
            
@@ -161,7 +161,7 @@ jobs:
     - name: Run Tesseract basicapitest
       run: |
            cd cmaketest
-           ${{ matrix.config.cxx }} basicapitest.cpp `pkg-config  --cflags --libs tesseract lept ` -fopenmp  -pthread -o basicapitest 
+           ${{ matrix.config.cxx }} -std=c++17 `pkg-config --cflags --libs tesseract lept ` -fopenmp  -pthread basicapitest.cpp -o basicapitest 
            ./basicapitest
       if: always()
            
@@ -235,7 +235,7 @@ jobs:
            cp tessdata_unittest/fonts/* test/testing/
            mv tessdata_unittest/* ../
             
-    - name: Run Tesseract on phototest.tif and raaj.tif
+    - name: Run Tesseract on phototest.tif and raaj.tif (No basicapitest)
       run: |
            tesseract test/testing/phototest.tif -  --tessdata-dir ../tessdata
            tesseract test/testing/raaj.tif - -l hin  --tessdata-dir ../tessdata
