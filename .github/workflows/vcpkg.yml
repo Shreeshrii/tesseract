@@ -13,7 +13,7 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        os: [ubuntu-latest, windows-latest]
+        os: [ubuntu-latest, windows-latest, macos-latest]
       
     steps:
       - run: |
@@ -44,3 +44,10 @@ jobs:
              vcpkg/vcpkg install tesseract:x64-windows
         if: runner.os == 'Windows'
 
+      - name: Build (macOS)
+        run: |
+             vcpkg/bootstrap-vcpkg.sh
+             vcpkg/vcpkg integrate install
+             vcpkg/vcpkg list tess
+             vcpkg/vcpkg install tesseract:x64-macos
+        if: runner.os == 'Windows'
