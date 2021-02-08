@@ -3,7 +3,7 @@ name: cmake
 # cmake build of tesseract and training tools with gcc and clang on macOS homebrew using Ninja.
 # test command line version of tesseract.
 on:
-  #push:
+  push:
   schedule:
     - cron: 0 21 * * *
 
@@ -134,10 +134,10 @@ jobs:
              ${{ matrix.config.cxx }} basicapitest.cpp `pkg-config --cflags --libs tesseract lept ` -fopenmp  -pthread  -o basicapitest 
              ./basicapitest
         if: startsWith(matrix.config.cxx, 'g')
-        
+
+# Include directories  /home/runner/work/tesseract/tesseract/build/inst/include/tesseract/
       - name: Build basicapitest with clang++
         run: |
-             export    /home/runner/work/tesseract/tesseract/build/inst/include/tesseract/
              export PKG_CONFIG_PATH=/home/runner/work/tesseract/tesseract/build/inst/lib/pkgconfig:$PKG_CONFIG_PATH
              cd cmaketest
              ${{ matrix.config.cxx }} basicapitest.cpp `pkg-config --cflags --libs tesseract lept `  -pthread -o basicapitest 

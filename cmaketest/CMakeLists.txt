@@ -10,6 +10,9 @@ set(LIB_pthread pthread)
 find_package(Leptonica CONFIG REQUIRED)
 find_package(Tesseract CONFIG REQUIRED)
 
+include_directories(${TESSERACT_INCLUDE_DIRS})
+include_directories(${LEPTONICA_INCLUDE_DIRS})
+
 add_executable( basicapitest basicapitest.cpp)
 
 target_link_libraries(basicapitest ${Leptonica_LIBRARIES})
