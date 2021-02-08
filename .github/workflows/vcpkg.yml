@@ -3,6 +3,7 @@ name: vcpkg
 # Building training tools without sw is not supported on windows with cmake.
 # Build stable version 4.1.1. 
 # Requested port update https://github.com/microsoft/vcpkg/issues/16019.
+# macos failing for leptonica
 on:
   push:
   schedule:
@@ -49,26 +50,6 @@ jobs:
            ./basicapitest
       if: runner.os == 'Linux'
     
-    - name: Build (macOS)
-      run: |
-           vcpkg/bootstrap-vcpkg.sh
-           vcpkg/vcpkg integrate install
-           vcpkg/vcpkg list tess
-      if: runner.os == 'macOS'
-    
-    - name: Build Tesseract 4.1.1 (macOS)
-      run: |
-           vcpkg/vcpkg install tesseract:x64-osx
-      if: runner.os == 'macOS'
-    
-    - name: Build baseapitest (macOS)
-      run: |
-           mkdir test-build && cd test-build
-           cmake ../cmaketest 
-           cmake --build . 
-           ./basicapitest
-      if: runner.os == 'macOS'
-    
     - name: Build (Windows)
       run: |
            vcpkg/bootstrap-vcpkg.bat
@@ -77,3 +58,23 @@ jobs:
            vcpkg/vcpkg install tesseract:x64-windows
       if: runner.os == 'Windows'
     
+###    - name: Install vcpkg (macOS)
+###      run: |
+###           vcpkg/bootstrap-vcpkg.sh
+###           vcpkg/vcpkg integrate install
+###           vcpkg/vcpkg list tess
+###      if: runner.os == 'macOS'
+###    
+###    - name: Build Tesseract 4.1.1 (macOS)
+###      run: |
+###           vcpkg/vcpkg install tesseract:x64-osx
+###      if: runner.os == 'macOS'
+### 
+###    - name: Build baseapitest (macOS)
+###      run: |
+###           mkdir test-build && cd test-build
+###           cmake ../cmaketest 
+###           cmake --build . 
+###           ./basicapitest
+###      if: runner.os == 'macOS'
+###      continue-on-error: true

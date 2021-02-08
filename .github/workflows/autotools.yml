@@ -2,7 +2,7 @@ name: autotools
 # autotools build of tesseract and training tools on ubuntu, macos homebrew and macports.
 # Don't run api test on macports
 on:
-  #push:
+  push:
   schedule:
     - cron: 0 20 * * *
 
@@ -53,7 +53,7 @@ jobs:
 
     - name: Configure
       run: |
-           ./configure '--disable-shared --disable-openmp' 'CXX=${{ matrix.config.cxx }}' 'CXXFLAGS=-g -O2'
+           ./configure '--disable-shared' '--disable-openmp' 'CXX=${{ matrix.config.cxx }}' 'CXXFLAGS=-g -O2'
       
     - name: Make and Install Tesseract
       run: |
@@ -134,7 +134,7 @@ jobs:
         
     - name: Configure
       run: |
-           ./configure '--disable-shared --disable-openmp' '--with-pic' 'CXX=${{ matrix.config.cxx }}' 'CXXFLAGS=-g -O2' 'PKG_CONFIG_PATH=/usr/local/opt/icu4c/lib/pkgconfig:/usr/local/opt/libarchive/lib/pkgconfig:/usr/local/opt/libffi/lib/pkgconfig'
+           ./configure '--disable-shared' '--disable-openmp' '--with-pic' 'CXX=${{ matrix.config.cxx }}' 'CXXFLAGS=-g -O2' 'PKG_CONFIG_PATH=/usr/local/opt/icu4c/lib/pkgconfig:/usr/local/opt/libarchive/lib/pkgconfig:/usr/local/opt/libffi/lib/pkgconfig'
         
     - name: Make and Install Tesseract
       run: |
@@ -206,7 +206,8 @@ jobs:
                   automake \
                   libtool \
                   pkgconfig \
-                  leptonica 
+                  leptonica \
+                  libomp
            sudo port install cairo pango 
            sudo port install icu +devel
         
@@ -217,7 +218,7 @@ jobs:
         
     - name: Configure
       run: |
-           ./configure  '--disable-shared --disable-openmp' '--with-pic' 'CXX=${{ matrix.config.cxx }}' 'CXXFLAGS=-g -O2' 
+           ./configure  '--disable-shared' '--disable-openmp' '--with-pic' 'CXX=${{ matrix.config.cxx }}' 'CXXFLAGS=-g -O2' 
         
     - name: Make and Install Tesseract
       run: |
