@@ -23,7 +23,7 @@ cmake --install test-build --prefix test-install
 rm -rf build
 mkdir build && cd build
 cmake \
--DOPENMP_BUILD=ON \
+-DOPENMP_BUILD=OFF \
 -DCMAKE_INSTALL_PREFIX=inst \
 -DCMAKE_BUILD_TYPE=Release ..
 cd ..
@@ -35,6 +35,7 @@ cmake \
 -S cmaketest \
 -B test-build \
 -G Ninja \
+-DCMAKE_PREFIX_PATH=$(readlink -f build/inst/lib/cmake/tesseract) \
 -DCMAKE_INSTALL_PREFIX:PATH=test-inst
 cmake --build test-build 
 test-build/basicapitest

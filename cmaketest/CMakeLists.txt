@@ -14,8 +14,7 @@ set(LIB_pthread pthread)
 
 find_package(PkgConfig)
 pkg_check_modules(Leptonica REQUIRED lept>=1.78)
-pkg_check_modules(Tesseract REQUIRED tesseract)
 
 add_executable( basicapitest basicapitest.cpp)
 target_link_libraries(basicapitest ${Leptonica_LIBRARIES})
-target_link_libraries(basicapitest ${Tesseract_LIBRARIES})
+target_link_libraries(basicapitest tesseract)
