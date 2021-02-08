@@ -58,12 +58,12 @@ jobs:
     
     - name: Build Tesseract Dependencies (macOS)
       run: |
-           vcpkg/vcpkg install bzip2[core]:x64-macos giflib[core]:x64-macos leptonica[core]:x64-macos libarchive[bzip2,core,libxml2,lz4,lzma,lzo,openssl,zstd]:x64-macos libiconv[core]:x64-macos libjpeg-turbo[core]:x64-macos liblzma[core]:x64-macos libpng[core]:x64-macos libwebp[core,nearlossless,simd]:x64-macos libxml2[core]:x64-macos lz4[core]:x64-macos lzo[core]:x64-macos openjpeg[core]:x64-macos openssl[core]:x64-macos tiff[core]:x64-macos xxhash[core]:x64-macos zlib[core]:x64-macos zstd[core]:x64-macos
+           vcpkg/vcpkg install bzip2[core]:x64-osx giflib[core]:x64-osx leptonica[core]:x64-osx libarchive[bzip2,core,libxml2,lz4,lzma,lzo,openssl,zstd]:x64-osx libiconv[core]:x64-osx libjpeg-turbo[core]:x64-osx liblzma[core]:x64-osx libpng[core]:x64-osx libwebp[core,nearlossless,simd]:x64-osx libxml2[core]:x64-osx lz4[core]:x64-osx lzo[core]:x64-osx openjpeg[core]:x64-osx openssl[core]:x64-osx tiff[core]:x64-osx xxhash[core]:x64-osx zlib[core]:x64-osx zstd[core]:x64-osx
       if: runner.os == 'macOS'
     
     - name: Build Tesseract 4.1.1 (macOS)
       run: |
-           vcpkg/vcpkg install tesseract:x64-macos
+           vcpkg/vcpkg install tesseract:x64-osx
       if: runner.os == 'macOS'
     
     - name: Build baseapitest (macOS)

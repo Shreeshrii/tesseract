@@ -2,7 +2,7 @@ name: autotools
 # autotools build of tesseract and training tools on ubuntu, macos homebrew and macports.
 # Don't run api test on macports
 on:
-  push:
+  #push:
   schedule:
     - cron: 0 20 * * *
 
