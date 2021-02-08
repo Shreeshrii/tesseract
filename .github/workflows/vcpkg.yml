@@ -45,14 +45,18 @@ jobs:
            ./basicapitest
       if: runner.os == 'Linux'
     
-    - name: Build (Windows)
+    - name: Install vcpkg (Windows)
       run: |
            vcpkg/bootstrap-vcpkg.bat
            vcpkg/vcpkg integrate install
            vcpkg/vcpkg list tess
+      if: runner.os == 'Windows'
+
+    - name: Build Tesseract 4.1.1 (Windows)
+      run: |
            vcpkg/vcpkg install tesseract:x64-windows
       if: runner.os == 'Windows'
-    
+      
 ###    - name: Install vcpkg (macOS)
 ###      run: |
 ###           vcpkg/bootstrap-vcpkg.sh

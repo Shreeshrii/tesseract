@@ -13,25 +13,25 @@ jobs:
       fail-fast: false
       matrix:
         config:
-          - { name: ubuntu-18.04-clang-7-cmake-build, os: ubuntu-18.04, cc: clang-7,  cxx: clang++-7 }
-          - { name: ubuntu-18.04-clang-8-cmake-build, os: ubuntu-18.04, cc: clang-8,  cxx: clang++-8 } #installed
-          - { name: ubuntu-18.04-clang-9-cmake-build, os: ubuntu-18.04, cc: clang-9,  cxx: clang++-9 } #installed
-          - { name: ubuntu-18.04-clang-10-cmake-build, os: ubuntu-18.04, cc: clang-10,  cxx: clang++-10 }
+          - { name: ubuntu-18.04-clang-7-autotools, os: ubuntu-18.04, cc: clang-7,  cxx: clang++-7 }
+          - { name: ubuntu-18.04-clang-8-autotools, os: ubuntu-18.04, cc: clang-8,  cxx: clang++-8 } #installed
+          - { name: ubuntu-18.04-clang-9-autotools, os: ubuntu-18.04, cc: clang-9,  cxx: clang++-9 } #installed
+          - { name: ubuntu-18.04-clang-10-autotools, os: ubuntu-18.04, cc: clang-10,  cxx: clang++-10 }
           
-          - { name: ubuntu-18.04-gcc-7-cmake-build, os: ubuntu-18.04, cc: gcc-7,  cxx: g++-7 } #installed
-          - { name: ubuntu-18.04-gcc-8-cmake-build, os: ubuntu-18.04, cc: gcc-8,  cxx: g++-8 } #installed
-          - { name: ubuntu-18.04-gcc-9-cmake-build, os: ubuntu-18.04, cc: gcc-9,  cxx: g++-9 } #installed
-          - { name: ubuntu-18.04-gcc-10-cmake-build, os: ubuntu-18.04, cc: gcc-10,  cxx: g++-10 } #installed
+          - { name: ubuntu-18.04-gcc-7-autotools, os: ubuntu-18.04, cc: gcc-7,  cxx: g++-7 } #installed
+          - { name: ubuntu-18.04-gcc-8-autotools, os: ubuntu-18.04, cc: gcc-8,  cxx: g++-8 } #installed
+          - { name: ubuntu-18.04-gcc-9-autotools, os: ubuntu-18.04, cc: gcc-9,  cxx: g++-9 } #installed
+          - { name: ubuntu-18.04-gcc-10-autotools, os: ubuntu-18.04, cc: gcc-10,  cxx: g++-10 } #installed
           
-          - { name: ubuntu-20.04-clang-7-cmake-build, os: ubuntu-20.04, cc: clang-7, cxx: clang++-7 }
-          - { name: ubuntu-20.04-clang-8-cmake-build, os: ubuntu-20.04, cc: clang-8, cxx: clang++-8 } #installed
-          - { name: ubuntu-20.04-clang-9-cmake-build, os: ubuntu-20.04, cc: clang-9, cxx: clang++-9 } #installed
-          - { name: ubuntu-20.04-clang-10-cmake-build, os: ubuntu-20.04, cc: clang-10, cxx: clang++-10 } #installed
+          - { name: ubuntu-20.04-clang-7-autotools, os: ubuntu-20.04, cc: clang-7, cxx: clang++-7 }
+          - { name: ubuntu-20.04-clang-8-autotools, os: ubuntu-20.04, cc: clang-8, cxx: clang++-8 } #installed
+          - { name: ubuntu-20.04-clang-9-autotools, os: ubuntu-20.04, cc: clang-9, cxx: clang++-9 } #installed
+          - { name: ubuntu-20.04-clang-10-autotools, os: ubuntu-20.04, cc: clang-10, cxx: clang++-10 } #installed
           
-          - { name: ubuntu-20.04-gcc-7-cmake-build, os: ubuntu-20.04, cc: gcc-7, cxx: g++-7 } #installed
-          - { name: ubuntu-20.04-gcc-8-cmake-build, os: ubuntu-20.04, cc: gcc-8, cxx: g++-8 } #installed
-          - { name: ubuntu-20.04-gcc-9-cmake-build, os: ubuntu-20.04, cc: gcc-9, cxx: g++-9 } #installed
-          - { name: ubuntu-20.04-gcc-10-cmake-build, os: ubuntu-20.04, cc: gcc-10, cxx: g++-10 } #installed
+          - { name: ubuntu-20.04-gcc-7-autotools, os: ubuntu-20.04, cc: gcc-7, cxx: g++-7 } #installed
+          - { name: ubuntu-20.04-gcc-8-autotools, os: ubuntu-20.04, cc: gcc-8, cxx: g++-8 } #installed
+          - { name: ubuntu-20.04-gcc-9-autotools, os: ubuntu-20.04, cc: gcc-9, cxx: g++-9 } #installed
+          - { name: ubuntu-20.04-gcc-10-autotools, os: ubuntu-20.04, cc: gcc-10, cxx: g++-10 } #installed
 
     steps:
     - uses: actions/checkout@v2
@@ -102,10 +102,10 @@ jobs:
       fail-fast: false
       matrix:
         config:
-          - { name: macos-10.15-clang-12-cmake-build, os: macos-10.15, cc: clang, cxx: clang++ } # default clang-12
-          - { name: macos-10.15-gcc-8-cmake-build, os: macos-10.15, cc: gcc-8, cxx: g++-8 } #installed
-          - { name: macos-10.15-gcc-9-cmake-build, os: macos-10.15, cc: gcc-9, cxx: g++-9 } #installed
-          - { name: macos-10.15-gcc-10-cmake-build, os: macos-10.15, cc: gcc-10, cxx: g++-10 } #installed
+          - { name: macos-10.15-clang-12-autotools, os: macos-10.15, cc: clang, cxx: clang++ } # default clang-12
+          - { name: macos-10.15-gcc-8-autotools, os: macos-10.15, cc: gcc-8, cxx: g++-8 } #installed
+          - { name: macos-10.15-gcc-9-autotools, os: macos-10.15, cc: gcc-9, cxx: g++-9 } #installed
+          - { name: macos-10.15-gcc-10-autotools, os: macos-10.15, cc: gcc-10, cxx: g++-10 } #installed
         
     steps:
     - uses: actions/checkout@v2
@@ -176,10 +176,10 @@ jobs:
       fail-fast: false
       matrix:
         config:
-          - { name: macos-10.15-clang-12-cmake-build, os: macos-10.15, cc: clang, cxx: clang++ } # defualt
-          - { name: macos-10.15-gcc-8-cmake-build, os: macos-10.15, cc: gcc-8, cxx: g++-8 } #installed
-          - { name: macos-10.15-gcc-9-cmake-build, os: macos-10.15, cc: gcc-9, cxx: g++-9 } #installed
-          - { name: macos-10.15-gcc-10-cmake-build, os: macos-10.15, cc: gcc-10, cxx: g++-10 } #installed
+          - { name: macos-10.15-clang-12-autotools, os: macos-10.15, cc: clang, cxx: clang++ } # defualt
+          - { name: macos-10.15-gcc-8-autotools, os: macos-10.15, cc: gcc-8, cxx: g++-8 } #installed
+          - { name: macos-10.15-gcc-9-autotools, os: macos-10.15, cc: gcc-9, cxx: g++-9 } #installed
+          - { name: macos-10.15-gcc-10-autotools, os: macos-10.15, cc: gcc-10, cxx: g++-10 } #installed
         
     steps:
     - uses: actions/checkout@v2
@@ -228,7 +228,7 @@ jobs:
            text2image -v
       if: success() || failure()
 
-    - name: Get fonts, tessdata and langdata required for unit tests
+    - name: Get fonts, tessdata and langdata required for tests
       run: |
            git clone https://github.com/egorpugin/tessdata tessdata_unittest
            cp tessdata_unittest/fonts/* test/testing/
