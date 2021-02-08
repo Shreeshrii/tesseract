@@ -85,17 +85,10 @@ jobs:
            
     - name: Run Tesseract basicapitest
       run: |
+           export CXXFLAGS="-std=c++17"
            cd cmaketest
            ${{ matrix.config.cxx }} basicapitest.cpp `pkg-config --cflags --libs tesseract lept `  -pthread  -o basicapitest 
            ./basicapitest
-      if: startsWith(matrix.config.cxx, 'g')
-
-    - name: Run Tesseract basicapitest
-      run: |
-           cd cmaketest
-           ${{ matrix.config.cxx }} basicapitest.cpp `pkg-config --cflags --libs tesseract lept ` -pthread  -o basicapitest 
-           ./basicapitest
-      if: startsWith(matrix.config.cxx, 'clang')
       
     - name: Display Compiler Version
       run: |
@@ -245,13 +238,13 @@ jobs:
       run: |
            tesseract test/testing/phototest.tif -  --tessdata-dir ../tessdata
            tesseract test/testing/raaj.tif - -l hin  --tessdata-dir ../tessdata
-           
-    - name: Run Tesseract basicapitest
-      run: |
-           cd cmaketest
-           ${{ matrix.config.cxx }} basicapitest.cpp `pkg-config --cflags --libs tesseract lept `  -pthread  -o basicapitest 
-           ./basicapitest
-      if: always()
+###           
+###    - name: Run Tesseract basicapitest
+###      run: |
+###           cd cmaketest
+###           ${{ matrix.config.cxx }} basicapitest.cpp `pkg-config --cflags --libs tesseract lept `  -pthread  -o basicapitest 
+###           ./basicapitest
+###      if: always()
       
     - name: Display Compiler Version
       run: |

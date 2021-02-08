@@ -32,11 +32,6 @@ jobs:
            vcpkg/vcpkg list tess
       if: runner.os == 'Linux'
     
-    - name: Build Tesseract Dependencies (Linux)
-      run: |
-           vcpkg/vcpkg install bzip2[core]:x64-linux giflib[core]:x64-linux leptonica[core]:x64-linux libarchive[bzip2,core,libxml2,lz4,lzma,lzo,openssl,zstd]:x64-linux libiconv[core]:x64-linux libjpeg-turbo[core]:x64-linux liblzma[core]:x64-linux libpng[core]:x64-linux libwebp[core,nearlossless,simd]:x64-linux libxml2[core]:x64-linux lz4[core]:x64-linux lzo[core]:x64-linux openjpeg[core]:x64-linux openssl[core]:x64-linux tiff[core]:x64-linux xxhash[core]:x64-linux zlib[core]:x64-linux zstd[core]:x64-linux
-      if: runner.os == 'Linux'
-    
     - name: Build Tesseract 4.1.1 (Linux)
       run: |
            vcpkg/vcpkg install tesseract:x64-linux

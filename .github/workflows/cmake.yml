@@ -47,11 +47,6 @@ jobs:
         run: |
              sudo apt-get install ${{ matrix.config.cc }} ${{ matrix.config.cxx }} -y
         if: runner.os == 'Linux'
-
-      - name: Install compilers on macOS
-        run: |
-             brew install  ${{ matrix.config.cc }} ${{ matrix.config.cxx }} -y
-        if: runner.os == 'macOS'
         
       - name: Install dependencies on Linux
         run: |
@@ -129,15 +124,16 @@ jobs:
         
       - name: Build basicapitest with g++
         run: |
+             export CXXFLAGS="$CXXFLAGS -I/home/runner/work/tesseract/tesseract/build/inst/include/tesseract"
              export PKG_CONFIG_PATH=/home/runner/work/tesseract/tesseract/build/inst/lib/pkgconfig:$PKG_CONFIG_PATH
              cd cmaketest
-             ${{ matrix.config.cxx }} basicapitest.cpp `pkg-config --cflags --libs tesseract lept ` -fopenmp  -pthread  -o basicapitest 
+             ${{ matrix.config.cxx }} basicapitest.cpp `pkg-config --cflags --libs tesseract lept `  -pthread  -o basicapitest 
              ./basicapitest
         if: startsWith(matrix.config.cxx, 'g')
 
-# Include directories  /home/runner/work/tesseract/tesseract/build/inst/include/tesseract/
       - name: Build basicapitest with clang++
         run: |
+             export CXXFLAGS="$CXXFLAGS -I/home/runner/work/tesseract/tesseract/build/inst/include/tesseract"
              export PKG_CONFIG_PATH=/home/runner/work/tesseract/tesseract/build/inst/lib/pkgconfig:$PKG_CONFIG_PATH
              cd cmaketest
              ${{ matrix.config.cxx }} basicapitest.cpp `pkg-config --cflags --libs tesseract lept `  -pthread -o basicapitest 
