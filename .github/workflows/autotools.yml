@@ -1,5 +1,6 @@
 name: autotools
 # autotools build of tesseract and training tools on ubuntu, macos homebrew and macports.
+# Don't run api test on macports
 on:
   push:
   schedule:
@@ -84,7 +85,8 @@ jobs:
            
     - name: Run Tesseract basicapitest
       run: |
-           ${{ matrix.config.cxx }} cmaketest/basicapitest.cpp `pkg-config  --libs tesseract lept ` -fopenmp  -pthread -o basicapitest 
+           cd cmaketest
+           ${{ matrix.config.cxx }} basicapitest.cpp `pkg-config  --cflags --libs tesseract lept ` -fopenmp  -pthread -o basicapitest 
            ./basicapitest
       if: always()
            
@@ -158,7 +160,8 @@ jobs:
            
     - name: Run Tesseract basicapitest
       run: |
-           ${{ matrix.config.cxx }} cmaketest/basicapitest.cpp `pkg-config  --libs tesseract lept ` -fopenmp  -pthread -o basicapitest 
+           cd cmaketest
+           ${{ matrix.config.cxx }} basicapitest.cpp `pkg-config  --cflags --libs tesseract lept ` -fopenmp  -pthread -o basicapitest 
            ./basicapitest
       if: always()
            
@@ -236,12 +239,6 @@ jobs:
       run: |
            tesseract test/testing/phototest.tif -  --tessdata-dir ../tessdata
            tesseract test/testing/raaj.tif - -l hin  --tessdata-dir ../tessdata
-           
-    - name: Run Tesseract basicapitest
-      run: |
-           ${{ matrix.config.cxx }} cmaketest/basicapitest.cpp `pkg-config  --libs tesseract lept ` -fopenmp  -pthread -o basicapitest 
-           ./basicapitest
-      if: always()
            
     - name: Display Compiler Version
       run: |

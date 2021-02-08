@@ -124,7 +124,8 @@ jobs:
         
       - name: Build and run basicapitest 
         run: |
-             ${{ matrix.config.cxx }} cmaketest/basicapitest.cpp `pkg-config --cflags --libs tesseract lept ` -fopenmp  -pthread -o basicapitest 
+             cd cmaketest
+             ${{ matrix.config.cxx }} basicapitest.cpp `pkg-config --cflags --libs tesseract lept ` -fopenmp  -pthread -o basicapitest 
              ./basicapitest
         if: always()
 
