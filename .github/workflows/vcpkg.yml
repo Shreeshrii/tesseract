@@ -4,6 +4,7 @@ name: vcpkg
 # Build stable version 4.1.1. 
 # Requested port update https://github.com/microsoft/vcpkg/issues/16019.
 # macos failing for leptonica
+
 on:
   push:
   schedule:
@@ -14,7 +15,7 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        os: [ubuntu-latest, windows-latest]
+        os: [ubuntu-latest, windows-latest, macos-latest]
       
     steps:
     - uses: actions/checkout@v2
@@ -58,23 +59,27 @@ jobs:
       if: runner.os == 'Windows'
       
       
-###    - name: Install vcpkg (macOS)
-###      run: |
-###           vcpkg/bootstrap-vcpkg.sh
-###           vcpkg/vcpkg integrate install
-###           vcpkg/vcpkg list tess
-###      if: runner.os == 'macOS'
-###    
-###    - name: Build Tesseract 4.1.1 (macOS)
-###      run: |
-###           vcpkg/vcpkg install tesseract:x64-osx
-###      if: runner.os == 'macOS'
-### 
-###    - name: Build baseapitest (macOS)
-###      run: |
-###           mkdir test-build && cd test-build
-###           cmake ../cmaketest 
-###           cmake --build . 
-###           ./basicapitest
-###      if: runner.os == 'macOS'
-###      continue-on-error: true
+    - name: Install vcpkg (macOS)
+      run: |
+           vcpkg/bootstrap-vcpkg.sh
+           vcpkg/vcpkg integrate install
+           vcpkg/vcpkg list tess
+      if: runner.os == 'macOS'
+    
+    - name: Build Tesseract 4.1.1 (macOS)
+      run: |
+           vcpkg/vcpkg install tesseract:x64-osx
+           cat /Users/runner/work/tesseract/tesseract/vcpkg/buildtrees/leptonica/install-x64-osx-dbg-out.log
+      if: runner.os == 'macOS'
+      continue-on-error: true
+ 
+    - name: Build baseapitest (macOS)
+      run: |
+           cat /Users/runner/work/tesseract/tesseract/vcpkg/buildtrees/leptonica/install-x64-osx-dbg-out.log
+           mkdir test-build && cd test-build
+           cmake ../cmaketest 
+           cmake --build . 
+           ./basicapitest
+      if: runner.os == 'macOS'
+      continue-on-error: true
+      
