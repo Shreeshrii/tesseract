@@ -1,7 +1,9 @@
 name: cmake
 # cmake build of tesseract and training tools with gcc and clang on ubuntu.
 # cmake build of tesseract and training tools with gcc and clang on macOS homebrew using Ninja.
-# test command line version of tesseract. basicapitest -fatal error: tesseract/baseapi.h 
+# test command line version of tesseract. 
+# basicapitest -fatal error: tesseract/baseapi.h 
+
 on:
   push:
   schedule:
@@ -122,7 +124,7 @@ jobs:
              build/inst/bin/tesseract test/testing/phototest.tif -  --tessdata-dir ../tessdata
              build/inst/bin/tesseract test/testing/raaj.tif - -l hin  --tessdata-dir ../tessdata
         
-      - name: Build and run basicapitest
+      - name: Build and run basicapitest (fatal error: tesseract/baseapi.h - see log)
         run: |
              export CXXFLAGS="$CXXFLAGS -I/home/runner/work/tesseract/tesseract/build/inst/include -L/home/runner/work/tesseract/tesseract/build/inst/lib -std=c++17"
              export PKG_CONFIG_PATH=/home/runner/work/tesseract/tesseract/build/inst/lib/pkgconfig:$PKG_CONFIG_PATH
