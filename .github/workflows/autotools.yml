@@ -248,8 +248,7 @@ jobs:
            tesseract test/testing/phototest.tif -  --tessdata-dir ../tessdata
            tesseract test/testing/raaj.tif - -l hin  --tessdata-dir ../tessdata
            
-    - name: Run Tesseract basicapitest (gcc - fatal error: tesseract/baseapi.h, ERROR in clang) 
-      ## if: startsWith(matrix.config.cxx, 'zzz')
+    - name: Run Tesseract basicapitest 
       run: |
            export CXXFLAGS="-std=c++17"
            cd cmaketest
