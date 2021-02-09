@@ -34,7 +34,7 @@ jobs:
     
     - name: Build Tesseract 4.1.1 (Linux)
       run: |
-           vcpkg/vcpkg install tesseract:x64-linux
+           vcpkg/vcpkg install leptonica:x64-linux tesseract:x64-linux
       if: runner.os == 'Linux'
     
     - name: Build baseapitest (Linux)
