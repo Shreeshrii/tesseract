@@ -124,7 +124,7 @@ jobs:
         
       - name: Build and run basicapitest
         run: |
-             export CXXFLAGS="$CXXFLAGS -I/home/runner/work/tesseract/tesseract/build/inst/include/tesseract"
+             export CXXFLAGS="$CXXFLAGS -I/home/runner/work/tesseract/tesseract/build/inst/include"
              export PKG_CONFIG_PATH=/home/runner/work/tesseract/tesseract/build/inst/lib/pkgconfig:$PKG_CONFIG_PATH
              cd cmaketest
              ${{ matrix.config.cxx }} basicapitest.cpp `pkg-config --cflags --libs tesseract lept `  -pthread  -o basicapitest 

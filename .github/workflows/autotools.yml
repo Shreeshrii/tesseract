@@ -1,6 +1,6 @@
 name: autotools
 # autotools build of tesseract and training tools on ubuntu, macos homebrew and macports.
-# Don't run api test on macports
+# Don't run api test on macports. Don't run for clang on homebrew.
 on:
   push:
   schedule:
@@ -157,12 +157,13 @@ jobs:
            tesseract test/testing/phototest.tif -  --tessdata-dir ../tessdata
            tesseract test/testing/raaj.tif - -l hin  --tessdata-dir ../tessdata
            
-    - name: Run Tesseract basicapitest
+    - name: Run Tesseract basicapitest (except for clang on homebrew)
+      if: startsWith(matrix.config.cxx, 'g')
       run: |
+           export CXXFLAGS="-std=c++17"
            cd cmaketest
            ${{ matrix.config.cxx }} basicapitest.cpp `pkg-config --cflags --libs tesseract lept `  -pthread  -o basicapitest 
            ./basicapitest
-      if: !startsWith(matrix.config.cxx, 'clang')
            
     - name: Display Compiler Version
       run: |
@@ -239,7 +240,7 @@ jobs:
            tesseract test/testing/phototest.tif -  --tessdata-dir ../tessdata
            tesseract test/testing/raaj.tif - -l hin  --tessdata-dir ../tessdata
 ###           
-###    - name: Run Tesseract basicapitest
+###    - name: DO NOT Run Tesseract basicapitest
 ###      run: |
 ###           cd cmaketest
 ###           ${{ matrix.config.cxx }} basicapitest.cpp `pkg-config --cflags --libs tesseract lept `  -pthread  -o basicapitest 
